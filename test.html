@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hello</h1>
+    <div id="cancel01">
+      <button>Cancel</button>
+    </div>
+
+    <div id="cancel02">
+      <button>Cancel</button>
+    </div>
+
+    <div id="cancel03">
+      <button>Cancel</button>
+    </div>
+
+    <form>
+      <input type="file" name="name" placeholder="Name" />
+    </form>
+
+    <!-- 
+        *********
+        *The script below is responsible for detecting the cancel button
+        *********
+    -->
+    <script>
+      const buttons = document.querySelectorAll("button");
+      const nameInput = document.querySelector('input[type="file"]');
+
+      /*****
+       **The code below is just for you to get a general understanding of events in
+       ** javascript before we proceed
+       *****/
+
+      /*******
+       *@Array{} Because the buttons variable is holding Nodelist of buttons
+       *i.e collections of buttons,we are going to convert the Nodelist to
+       *an array so we can loop through each of them
+       *******/
+      Array.from(buttons).forEach(button => {
+        /*******
+         *So after looping through the array of buttons collections,then we will 
+         have to add eventListener to each of button
+         *******/
+        button.addEventListener("click", e => {
+          /*******
+           *So now,when a user clicks the button we will use the event to target
+           *what the user have clicked and the proper convention for targeting an
+            element name is using the object key "tagName"
+           *******/
+
+          /*******
+           *Our control flow is: if the tagName is BUTTON and the BUTTON textcontent 
+           is Cancel & the parent element for that button has an id with a value 
+           "cancel02",then we will print them out
+           *******/
+
+          if (
+            e.target.tagName == "BUTTON" &&
+            e.target.innerText == "Cancel" &&
+            e.target.parentElement.getAttribute("id", "class02")
+          ) {
+            console.log("The tagName is: ", e.target.tagName);
+            console.log("The content is: ", e.target.innerText);
+            console.log("The parent element is: ", e.target.parentElement);
+          }
+        });
+      });
+
+      /*******
+       *The below code if for How to detect when cancel is clicked on file input
+       *******/
+
+      nameInput.addEventListener("keydown", e => {
+        /*******
+         *If the cancel button is clicked,then you should change the input file value to empty
+         *******/
+        if (e.key == "Backspace" || e.code == "Backspace" || e.keyCode == 8) {
+          console.log(e);
+          /******
+           *The below code will delete the file path
+           ******/
+          nameInput.value = "";
+        }
+      });
+    </script>
+  </body>
+</html>
